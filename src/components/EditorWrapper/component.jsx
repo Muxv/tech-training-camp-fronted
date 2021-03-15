@@ -1,16 +1,21 @@
 import React, {memo, useState} from "react"
 import MarkdownParser from "../MarkdownParser"
+import MarkdownToolbar from "../MarkdownToolbar";
 import "./style.css"
 
 const EditorWrapper = memo(() => {
 
-    const  [inputText, setInputText]  = useState("");
-    const tabKeyDown = (e) => {
-        // console.log(e.target.value)
+    const tableSize = "    ";
+    const  [inputText, setInputText]  = useState("# Markdown解析已准备\n");
+    const InputKeyDown = (e) => {
+
         if (e.keyCode === 9) // tab 
         {
-            e.preventDefault()
-            e.target.value += "\t"
+            e.preventDefault();
+            const start = e.target.selectionStart
+            const _text = inputText.slice(0, start) + tableSize + inputText.slice(start)
+            e.target.value = _text
+            setInputText(_text)
         }
     }
 
@@ -18,31 +23,25 @@ const EditorWrapper = memo(() => {
         setInputText(e.target.value);
     }
 
+    const textarea = <textarea className="textarea"
+                               onKeyDown={InputKeyDown}
+                               onChange={textChange}
+                               value={inputText}>
+                     </textarea>
+
     return (        
         <div className="container">
-            <h3 className="title">
+            <h1 className="title">
                 MarkDown Parser
-            </h3>
+            </h1>
+            <MarkdownToolbar target={textarea}/>
 
             <div className="parser">
-                <div className="col">
-                    <div className="subtitle">
-                        Markdown Code
-                    </div>  
-                    <textarea className="input showarea"
-                              onKeyDown={tabKeyDown}
-                              onChange={textChange}>
-                    </textarea>
+                <div className="col input">
+                    {textarea}
                 </div>
-
-
-                <div className="col">
-                    <div className="subtitle">
-                        Preview
-                    </div>  
-                    <div className="output showarea">
-                        <MarkdownParser nativeText={inputText}/>
-                    </div>
+                <div className="col output">
+                    <MarkdownParser nativeText={inputText}/>
                 </div>
 
             </div>
