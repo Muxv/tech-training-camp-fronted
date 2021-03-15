@@ -3,7 +3,6 @@ import ReactHtmlParser from "react-html-parser";
 import "./style.css"
 
 const MarkdownParser = memo(({nativeText}) => {
-
     const rules = [
         // header  
         [/#{6}\s+([^\n]+)\n/g, "<h6>$1</h6>"],
@@ -31,16 +30,12 @@ const MarkdownParser = memo(({nativeText}) => {
 
         // href and a
         //[!avatar](./a.jpg "this is a")
-        [/\!\[([^\]]+)\]\(([^\)]+)\s(\"[^\"\)]\")?\)/g, '<img src="$2"/>'],
+        [/\!\[([^\]]+)\]\(([^\)]+)\s?(\"[^\"\)]\")?\)/g, '<img src="$2"/>'],
         //[path](www.baidu.com)
         [/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>'],
-
-
-    
-
-        // [/([^\n]+\n)/g, "<p>$1<p>"]
-
+        [/([^\n]+\n)/g, "<p>$1<p>"]
     ]
+
 
     const parseMarkdown = (code) => {
         let result = code
@@ -48,7 +43,8 @@ const MarkdownParser = memo(({nativeText}) => {
             result = result.replace(rule, template)
         })
         
-        console.log(result)
+
+        // console.log(result)
 
         return ReactHtmlParser(result)
     }

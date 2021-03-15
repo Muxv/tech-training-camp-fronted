@@ -31,8 +31,8 @@
 
 .input {
     margin-left: 1rem;
-    background-color: gray;
-    color: white;
+    /* background-color: gray; */
+    /* color: white; */
 }
 
 .output {
@@ -45,8 +45,8 @@
     resize: none;
     min-height: 80vh;
     min-width: 40vh;
-    background-color: transparent;
-    color: white;
+    background-color: gainsboro;
+    color: black;
     border-width: 0px;
     font-size: 1.3rem;
 }

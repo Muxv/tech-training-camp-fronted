@@ -5,17 +5,28 @@ import "./style.css"
 
 const EditorWrapper = memo(() => {
 
+    const TABKEY = 9
     const tableSize = "    ";
     const  [inputText, setInputText]  = useState("# Markdown解析已准备\n");
-    const InputKeyDown = (e) => {
+    let textRef = React.createRef()
 
-        if (e.keyCode === 9) // tab 
+    const InputKeyDown = (e) => {
+        if (e.keyCode === TABKEY) // tab 
         {
             e.preventDefault();
             const start = e.target.selectionStart
-            const _text = inputText.slice(0, start) + tableSize + inputText.slice(start)
+            const end = e.target.selectionEnd
+            const _text = inputText.slice(0, start) + tableSize + inputText.slice(end)
             e.target.value = _text
             setInputText(_text)
+            e.target.blur()
+            const target = e.target
+			setTimeout(() => {
+				target.selectionStart = start + 4
+				target.selectionEnd = end + 4
+				target.focus()
+            })
+
         }
     }
 
@@ -23,7 +34,8 @@ const EditorWrapper = memo(() => {
         setInputText(e.target.value);
     }
 
-    const textarea = <textarea className="textarea"
+    const textarea = <textarea ref={textRef}
+                               className="textarea"
                                onKeyDown={InputKeyDown}
                                onChange={textChange}
                                value={inputText}>
@@ -34,7 +46,7 @@ const EditorWrapper = memo(() => {
             <h1 className="title">
                 MarkDown Parser
             </h1>
-            <MarkdownToolbar target={textarea}/>
+            <MarkdownToolbar target={textRef}/>
 
             <div className="parser">
                 <div className="col input">

@@ -6,7 +6,7 @@ const useStyles = makeStyles(({   }) =>
         // height: "5vh",
       // display: "flex",
       // flexDirection: "row",
-      backgroundColor: "gray",
+      backgroundColor: "gainsboro",
       marginBottom : "10px",
       marginLeft: "1rem",
       marginRight: "1rem",
@@ -22,13 +22,7 @@ const useStyles = makeStyles(({   }) =>
     text : {
       fontSize: "2em",
     },
-    group1 : {
-    },
-    group2 : {
-    },
-    group3 : {
-    },
-    
+
   }),
 );
 
