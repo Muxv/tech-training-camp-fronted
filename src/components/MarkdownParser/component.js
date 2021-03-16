@@ -14,7 +14,7 @@ const MarkdownParser = memo(({nativeText}) => {
         // hr
         [/\s*_{3}[\s|_]*\n/g, "<hr>"],
         [/\s*-{3}[\s|-]*\n/g, "<hr>"],
-        [/\s*\*{3}[\s|\*]*\n/g, "<hr>"],
+        [/\s*\={3}[\s|\=]*\n/g, "<hr>"],
 
         // list 
         [/((\n\d\..+)+)/g, "<ol>$1</ol>"],
@@ -27,13 +27,16 @@ const MarkdownParser = memo(({nativeText}) => {
         [/\*\s*([^\*]+)\*/g,  "<em>$1</em>"],
         [/__\s*([^_]+)__/g,  "<strong>$1</strong>"],
         [/_\s*([^_]+)_/g,  "<em>$1</em>"],
+        // code
+        [/\`\s*([^\n|^\`]+)\`/g, "<code>$1</code>"],
+        [/\`\`\`([\w]*)\n([^\`]*)\`\`\`/g, "<code><pre>$2</pre></code>"],
 
         // href and a
         //[!avatar](./a.jpg "this is a")
         [/\!\[([^\]]+)\]\(([^\)]+)\s?(\"[^\"\)]\")?\)/g, '<img src="$2"/>'],
         //[path](www.baidu.com)
         [/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>'],
-        [/([^\n]+\n)/g, "<p>$1<p>"]
+        [/([^\n]+\n)/g, "<p>$1<p>"],
     ]
 
 

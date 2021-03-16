@@ -10,6 +10,7 @@ import FormatItalicIcon from '@material-ui/icons/FormatItalic';
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import CodeIcon from '@material-ui/icons/Code';
 import ImageIcon from '@material-ui/icons/Image';
 import LinkIcon from '@material-ui/icons/Link';
 import useStyles from "./style";
@@ -143,6 +144,11 @@ const MarkdownToolbar = memo(({target}) => {
 		singleAdd(current, '\n[link](\.\/)', 12)
 	}
 
+	const codeClick = (e) => {
+		let current = target.current
+		pairAdd(current, "\`\`\`\n", 4)
+	}
+
     toolbar = <AppBar className={classes.toolbar} position="static">
         <Toolbar  display="flex" className={classes.bar}>
             <ButtonGroup className={classes.group1}>
@@ -217,6 +223,14 @@ const MarkdownToolbar = memo(({target}) => {
               <LinkIcon/>
             </Button>
           </ButtonGroup>
+		  <ButtonGroup>
+			  <Button variant="outlined"
+                    className={classes.button}
+					onClick={codeClick}
+                    >
+						<CodeIcon/>
+					</Button>
+		  </ButtonGroup>
 
         </Toolbar>
     </AppBar>
